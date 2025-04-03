@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .exit, .main {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .exit:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Latest News</h2>
+    <iframe id="newsVideo" width="560" height="315" src="https://www.youtube.com/embed/RUzgphgBRzI?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p>Stay updated with the latest news articles.</p>
+    <a class="exit" href="/feedback/">EXIT</a>
+    <a class="main" href="/main_page/">HOME</a>
+
+    <script>
+        // Function to start the video after 5 seconds
+        function startVideo() {
+            const videoFrame = document.getElementById('newsVideo');
+            const videoSrc = videoFrame.src;
+            videoFrame.src = videoSrc + "&autoplay=1"; // Add autoplay parameter
+        }
+
+        // Set a timeout to start the video after 5 seconds
+        setTimeout(startVideo, 2000);
+    </script>
+</body>
+</html>

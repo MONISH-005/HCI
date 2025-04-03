@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthBot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/health.css' %}">
+</head>
+
+<body>
+
+  <div class="bg-desktop">
+    <div class="bg-chat">
+      <div id="area-messages" class="area-messages">
+      </div>
+      <div id="area-interaction" class="area-interaction">
+        <p id="typing" class="no-typing">Healthbot typing...</p>
+        <div class="text-interaction">
+          <div class="write-message">
+            <input type="text" name="message" id="message">
+          </div>
+          <div class="send-button">
+            <button id="send" class="send" onclick="getData()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+         </div>
+  </div>
+  <center> 
+    <style>
+       .exit, .main {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .exit:hover {
+            background-color: #2980b9;
+        }
+    </style>
+  <a class="exit" href="/feedback/">EXIT</a>
+  <a class="main" href="/main_page/">HOME</a>
+   </center>
+  <script src="{% static 'js/Calc.js' %}"></script>
+  <script src="{% static 'js/Script.js' %}"></script>
+   
+</body>
+
+</html>

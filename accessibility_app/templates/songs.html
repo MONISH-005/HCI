@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Songs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: black;
+        }
+        #songs-container {
+            margin-top: 20px;
+        }
+        .song {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .play-btn {
+            background-color: black;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .exit-btn {
+            background-color: black;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trending Songs</h1>
+        <div id="songs-container">Loading songs...</div>
+        <button class="exit-btn" onclick="exitPage()">Exit</button>
+    </div>
+
+    <script>
+        async function fetchSongs() {
+            try {
+                const response = await fetch("https://saavn.dev/api/songs/trending");
+                const data = await response.json();
+
+                if (!data || !data.data || data.data.length === 0) {
+                    document.getElementById("songs-container").innerHTML = "<p>No songs found.</p>";
+                    speak("No trending songs available. If you need to exit, press tab and enter.");
+                    return;
+                }
+
+                document.getElementById("songs-container").innerHTML = ""; 
+                data.data.forEach(song => {
+                    const songDiv = document.createElement("div");
+                    songDiv.classList.add("song");
+                    songDiv.innerHTML = `
+                        <span>${song.name}</span>
+                        <button class="play-btn" onclick="playSong('${song.audio[0].url}', '${song.name}')">Play</button>
+                    `;
+                    document.getElementById("songs-container").appendChild(songDiv);
+                });
+
+                speak("Trending songs are displayed.");
+            } catch (error) {
+                document.getElementById("songs-container").innerHTML = "<p>Failed to load songs. Try again later.</p>";
+                speak("Failed to load songs. Please try again later.");
+            }
+        }
+
+        function playSong(url, songName) {
+            speak(`Playing ${songName}`);
+            const audio = new Audio(url);
+            audio.play();
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        }
+
+        function exitPage() {
+            speak("Exiting the page.");
+            window.location.href = "/main_page/";
+        }
+
+        fetchSongs();
+    </script>
+</body>
+</html>

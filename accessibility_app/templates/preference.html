@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Preference</title>
+    <link rel="stylesheet" href="{% static 'css/preference.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Select Your Accessibility Preference</h2>
+        <button id="visual-btn" class="preference-btn" tabindex="1">Visual Impairment</button>
+        <button id="ear-btn" class="preference-btn" tabindex="2">Hearing Impairment</button>
+    </div>
+
+    <script src="{% static 'js/preference_assist.js' %}"></script>
+</body>
+</html>
+

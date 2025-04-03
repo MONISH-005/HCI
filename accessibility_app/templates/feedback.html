@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>We Value Your Feedback</h1>
+        <div class="comments-container">
+            <textarea class="comments" placeholder="Your Comments"></textarea>
+            <div class="voice-icon" onclick="startDictation()">
+                <i class="fas fa-microphone"></i>
+            </div>
+        </div>
+        <div class="rate-us">Rate Us:</div>
+        <div class="stars">
+            <i class="far fa-star" onclick="rate(1)"></i>
+            <i class="far fa-star" onclick="rate(2)"></i>
+            <i class="far fa-star" onclick="rate(3)"></i>
+            <i class="far fa-star" onclick="rate(4)"></i>
+            <i class="far fa-star" onclick="rate(5)"></i>
+        </div>
+        
+        <button class="submit-btn" onclick="if (validateFeedback()) submitFeedback()">Submit</button>
+        <a href="/home/" class="skip-btn">Skip</a>
+        <div class="thank-you-message" id="thankYouMessage">Thank you for your feedback!</div>
+    </div>
+    
+    <script src="{% static 'js/feedback.js' %}"></script>
+</body>
+</html>

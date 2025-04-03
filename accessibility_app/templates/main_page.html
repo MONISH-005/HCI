@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>We Are Happy to See You ❤️</h1>
+        <div id="options">
+            <button class="option" onclick="handleButtonClick('LIVE NEWS')">LIVE NEWS</button>
+            <button class="option" onclick="handleButtonClick('LISTEN SONGS')">LISTEN SONGS</button>
+            <button class="option" onclick="handleButtonClick('LIVE MATCHES')">LIVE MATCHES</button>
+            <button class="option" onclick="handleButtonClick('EDUCATION')">EDUCATION</button>
+            <button class="option" onclick="handleButtonClick('HEALTH')">HEALTH</button>
+        </div>
+    </div>
+
+    <center>
+        <button class="exit" id="proceed-button" onclick="proceedToNextPage()">EXIT</button>
+    </center>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

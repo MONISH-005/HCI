@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Courses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: black;
+        }
+        #courses-container {
+            margin-top: 20px;
+        }
+        .course {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ddd;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .course a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .speak-btn {
+            background-color: black;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .exit-btn {
+            background-color: black;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Free Online Courses</h1>
+        <div id="courses-container">Loading courses...</div>
+        <button class="exit-btn" onclick="exitPage()">Exit</button>
+    </div>
+
+    <script>
+        async function fetchCourses() {
+            try {
+                const response = await fetch("https://www.udemy.com/api-2.0/courses/?page=1&page_size=5&ordering=highest-rated");
+                const data = await response.json();
+
+                if (!data.results || data.results.length === 0) {
+                    document.getElementById("courses-container").innerHTML = "<p>No free courses available.</p>";
+                    speak("No free courses found. If you need to exit, press tab and enter.");
+                    return;
+                }
+
+                document.getElementById("courses-container").innerHTML = ""; 
+                data.results.forEach(course => {
+                    const courseDiv = document.createElement("div");
+                    courseDiv.classList.add("course");
+                    courseDiv.innerHTML = `
+                        <a href="${course.url}" target="_blank">${course.title}</a>
+                        <p>Instructor: ${course.visible_instructors[0].display_name}</p>
+                        <button class="speak-btn" onclick="speak('Course: ${course.title}. Instructor: ${course.visible_instructors[0].display_name}')">🔊 Speak</button>
+                    `;
+                    document.getElementById("courses-container").appendChild(courseDiv);
+                });
+
+                speak("Free online courses are displayed.");
+            } catch (error) {
+                document.getElementById("courses-container").innerHTML = "<p>Failed to load courses. Try again later.</p>";
+                speak("Failed to load courses. Please try again later.");
+            }
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        }
+
+        function exitPage() {
+            speak("Exiting the page.");
+            window.location.href = "/main_page/";
+        }
+
+        fetchCourses();
+    </script>
+</body>
+</html>

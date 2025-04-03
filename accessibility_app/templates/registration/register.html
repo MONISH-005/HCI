@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="POST" action="/register/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required 
+                       onfocus="promptAndRecognize('Say your username', 'username')">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required 
+                       onfocus="promptAndRecognize('Say your email', 'email')">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required 
+                       onfocus="promptAndRecognize('Say your password', 'password')">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required 
+                       onfocus="promptAndRecognize('Repeat your password', 'confirm_password')">
+            </div>
+            <button type="submit" onfocus="speak('Press Enter to register')">Register</button>
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </form>
+    </div>
+    {% if messages %}
+        <div id="error-messages" data-messages='[ {% for message in messages %}"{{ message|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} ]' style="display: none;"></div>
+    {% endif %}
+    <script src="{% static 'js/voice_assist.js' %}"></script>
+</body>
+</html>
